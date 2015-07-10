@@ -46,7 +46,7 @@ void CC2500::init()
 
     reset();
    
-   //FSCTRL1 and MDMCFG4 have the biggest impact on sensitivity...
+//FSCTRL1 and MDMCFG4 have the biggest impact on sensitivity...
    
    WriteReg(CC2500_REG_PATABLE, 0x00);
    WriteReg(REG_IOCFG0, 0x01);
@@ -55,10 +55,8 @@ void CC2500::init()
    WriteReg(REG_PKTCTRL0, 0x05);
    WriteReg(REG_ADDR, 0x00);
    WriteReg(REG_CHANNR, 0x00);
-   //0x0f = -54  rfstudio
-   //0x0c = -53  rfstudio example value for sensitivity
-   //0x0a = -64  rfstudio example value for sensitivity
-   WriteReg(REG_FSCTRL1, 0x0c);  //this controls sensitivity or current usage
+
+   WriteReg(REG_FSCTRL1, 0x0f); 
    WriteReg(REG_FSCTRL0, 0x00);	
 	
    WriteReg(REG_FREQ2, 0x5d);
@@ -71,7 +69,10 @@ void CC2500::init()
    // Bandwidth
    //0x4a = 406 khz
    //0x5a = 325 khz
-   WriteReg(REG_MDMCFG4, 0x4a); 
+   // 300 khz is supposedly what dex uses...
+   //0x6a = 271 khz
+   //0x7a = 232 khz
+   WriteReg(REG_MDMCFG4, 0x7a); //appear to get better sensitivity
    WriteReg(REG_MDMCFG3, 0xf8);
    WriteReg(REG_MDMCFG2, 0x73);
    WriteReg(REG_MDMCFG1, 0x23);
